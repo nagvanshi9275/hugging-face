@@ -2,14 +2,16 @@
 import express from 'express';
 import axios from 'axios';
 import dotenv from 'dotenv';
+import cors from 'cors'; // Import cors for Cross-Origin Resource Sharing
 
 dotenv.config();
 
 const app = express(); 
-const port = 3000;
+const port = process.env.PORT || 3000; // Use the port from environment variable or default to 3000
 
 // Middleware to parse JSON requests
 app.use(express.json());
+app.use(cors()); // Enable CORS for all routes
 
 // Root route
 app.get('/', (req, res) => {
@@ -43,6 +45,7 @@ app.post('/ask', async (req, res) => {
     }
 });
 
+// Start the server
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
